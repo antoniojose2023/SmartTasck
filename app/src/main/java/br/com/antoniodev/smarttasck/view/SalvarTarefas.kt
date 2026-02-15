@@ -3,11 +3,15 @@ package br.com.antoniodev.smarttasck.view
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonColors
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -24,8 +28,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.antoniodev.smarttasck.componentes.Botao
 import br.com.antoniodev.smarttasck.componentes.CampoEntradaTexto
+import br.com.antoniodev.smarttasck.ui.theme.AMARELO100
+import br.com.antoniodev.smarttasck.ui.theme.AMARELO50
+import br.com.antoniodev.smarttasck.ui.theme.AZUL100
+import br.com.antoniodev.smarttasck.ui.theme.AZUL50
 import br.com.antoniodev.smarttasck.ui.theme.BLACK
 import br.com.antoniodev.smarttasck.ui.theme.Purple40
+import br.com.antoniodev.smarttasck.ui.theme.VERDE100
+import br.com.antoniodev.smarttasck.ui.theme.VERDE50
 import br.com.antoniodev.smarttasck.ui.theme.WHITE
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,6 +45,11 @@ fun SalvarTarefas(navController: NavController){
 
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
+
+    var prioridadeBaixa by remember { mutableStateOf(false) }
+    var prioridadeMedia by remember { mutableStateOf(false) }
+    var prioridadeAlta by remember { mutableStateOf(false) }
+
 
     Scaffold(
         topBar = {
@@ -81,6 +96,49 @@ fun SalvarTarefas(navController: NavController){
                     .height(160.dp)
                     .padding(16.dp, 10.dp, 16.dp, 0.dp)
             )
+
+            Row(
+                 modifier = Modifier.fillMaxWidth(),
+                 verticalAlignment = Alignment.CenterVertically,
+                 horizontalArrangement = Arrangement.Center
+            ) {
+
+                Text(text = "Níveis de Prioridades")
+
+                RadioButton(
+                    selected = prioridadeBaixa,
+                    onClick = {
+                        prioridadeBaixa = !prioridadeBaixa
+                    },
+                    colors = RadioButtonDefaults.colors(
+                           selectedColor = VERDE100,
+                           unselectedColor = VERDE50,
+                    )
+                )
+
+                RadioButton(
+                    selected = prioridadeMedia,
+                    onClick = {
+                        prioridadeMedia = !prioridadeMedia
+                    },
+                    colors = RadioButtonDefaults.colors(
+                        selectedColor = AMARELO100,
+                        unselectedColor = AMARELO50,
+                    )
+                )
+
+                RadioButton(
+                    selected = prioridadeAlta,
+                    onClick = {
+                        prioridadeAlta = !prioridadeAlta
+                    },
+                    colors = RadioButtonDefaults.colors(
+                        selectedColor = AZUL100,
+                        unselectedColor = AZUL50,
+                    )
+                )
+
+            }
 
             Botao(
                 "Adicionar",
