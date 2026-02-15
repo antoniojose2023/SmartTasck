@@ -21,3 +21,11 @@ val VERDE50 = Color(0x804CAF50)
 
 val AZUL100 = Color(0xFF3F51B5)
 val AZUL50 = Color(0x80673AB7)
+
+val WHITE = Color(0xFFFFFFFF)
+
+val BLACK = Color(0xFF070707)
+
+
+val LIGHT_BLUE = Color(0xFF6F78B6)
+
