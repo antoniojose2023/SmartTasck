@@ -14,7 +14,15 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.contentColorFor
+import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -25,24 +33,24 @@ import androidx.navigation.NavController
 import br.com.antoniodev.smarttasck.ui.theme.Purple40
 import br.com.antoniodev.smarttasck.ui.theme.WHITE
 import br.com.antoniodev.smarttasck.R.drawable
+import br.com.antoniodev.smarttasck.data.repository.RepositoryTarefa
 import br.com.antoniodev.smarttasck.itemlistagem.ItemTarefa
 import br.com.antoniodev.smarttasck.model.Tarefa
 import br.com.antoniodev.smarttasck.ui.theme.BLACK
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.launch
 
 //@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ListaTarefas(navController: NavController){
 
-    val tarefas = mutableListOf(
-        Tarefa("Atividade1", "jhas hsjhajsah ahsjahsjajs", 0),
-        Tarefa("Atividade2", "jhas hsjhajsah ahsjahsjajs", 1),
-        Tarefa("Atividade3", "jhas hsjhajsah ahsjahsjajs", 2),
-        Tarefa("Atividade4", "jhas hsjhajsah ahsjahsjajs", 3),
-        Tarefa("Atividade5", "jhas hsjhajsah ahsjahsjajs", 4),
-        Tarefa("Atividade6", "jhas hsjhajsah ahsjahsjajs", 2),
-    )
+    val repositoryTarefa = RepositoryTarefa()
+    val coroutineScope = rememberCoroutineScope()
 
+    var tarefas by remember{ mutableStateOf(emptyList<Tarefa>())}
 
 
     Scaffold(
@@ -72,13 +80,17 @@ fun ListaTarefas(navController: NavController){
           containerColor = BLACK
     ) {paddingValues ->
 
+        tarefas = repositoryTarefa.getTarefas().collectAsState(mutableListOf()).value
+
         LazyColumn(
               modifier = Modifier.padding( paddingValues )
         ) {
-             items(tarefas.size){ index ->
-                 val item = tarefas[index]
-                 ItemTarefa( item )
-             }
+
+                items(tarefas.size){index ->
+                    val tarefa = tarefas[index]
+                    ItemTarefa( tarefa )
+                }
+
         }
 
 

@@ -203,6 +203,7 @@ fun SalvarTarefas(navController: NavController){
                 coroutineScope.launch(Dispatchers.Main){
                     if(mensagem){
                         context.exibirToast("Tarefa salva com sucesso")
+                        navController.navigate("listarTarefas")
                     }else{
                         context.exibirToast("O campo tarefa é obrigatório")
                     }

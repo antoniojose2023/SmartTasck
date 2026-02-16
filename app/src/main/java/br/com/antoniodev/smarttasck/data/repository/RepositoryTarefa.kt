@@ -7,7 +7,9 @@ class RepositoryTarefa {
 
     fun salvarTarefa(titulo: String, decsricao: String, prioridade: Int){
             dataSource.salvarTarefa(titulo, decsricao, prioridade)
-
     }
+
+    fun getTarefas() = dataSource.getTarefas()
+
 
 }
