@@ -1,5 +1,6 @@
 package br.com.antoniodev.smarttasck.itemlistagem
 
+import android.app.AlertDialog
 import android.text.Layout
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -25,6 +26,8 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.R
+import androidx.navigation.NavController
+import br.com.antoniodev.smarttasck.data.repository.RepositoryTarefa
 import br.com.antoniodev.smarttasck.model.Tarefa
 import br.com.antoniodev.smarttasck.ui.theme.AMARELO100
 import br.com.antoniodev.smarttasck.ui.theme.AZUL100
@@ -34,10 +37,10 @@ import br.com.antoniodev.smarttasck.ui.theme.VERDE100
 import br.com.antoniodev.smarttasck.ui.theme.WHITE
 
 @Composable
-fun ItemTarefa(item: Tarefa){
+fun ItemTarefa(item: Tarefa, navController: NavController){
 
     val context = LocalContext.current
-
+    val repositoryTarefa = RepositoryTarefa()
 
     val prioridade = when(item.prioridade){
          0 -> "Sem prioridade"
@@ -53,6 +56,18 @@ fun ItemTarefa(item: Tarefa){
          else -> AZUL100
     }
 
+    fun exibirDialog(){
+        val alertDialog = AlertDialog.Builder(context)
+        alertDialog.setTitle("Atenção")
+        alertDialog.setMessage("Deseja excluir a tarefa?")
+        alertDialog.setPositiveButton("Sim"){_,_ ->
+            repositoryTarefa.deletarTarefa(item.titulo.toString())
+            navController.navigate("listarTarefas")
+        }.setNegativeButton("Não"){_,_ ->
+
+        }
+        alertDialog.show()
+    }
 
     Card(
          modifier = Modifier.fillMaxWidth().height(180.dp).padding(16.dp),
@@ -100,7 +115,7 @@ fun ItemTarefa(item: Tarefa){
 
                 IconButton(
                      onClick = {
-                         Toast.makeText(context, "Clicou no botão excluir", Toast.LENGTH_SHORT).show()
+                         exibirDialog()
                      }
                 ) {
                     Image(

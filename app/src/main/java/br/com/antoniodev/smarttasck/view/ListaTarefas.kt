@@ -72,9 +72,7 @@ fun ListaTarefas(navController: NavController){
                       navController.navigate("salvarTarefas")
                   },
               ) {
-                  //Image(Icons.Default.Add, contentDescription = "Add")
-                  Image(imageVector = ImageVector.vectorResource(id = drawable.ic_add), contentDescription = "Add")
-
+                      Image(imageVector = ImageVector.vectorResource(id = drawable.ic_add), contentDescription = "Add")
               }
           },
           containerColor = BLACK
@@ -88,7 +86,7 @@ fun ListaTarefas(navController: NavController){
 
                 items(tarefas.size){index ->
                     val tarefa = tarefas[index]
-                    ItemTarefa( tarefa )
+                    ItemTarefa( tarefa, navController )
                 }
 
         }

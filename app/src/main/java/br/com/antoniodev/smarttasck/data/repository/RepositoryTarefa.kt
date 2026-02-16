@@ -11,5 +11,8 @@ class RepositoryTarefa {
 
     fun getTarefas() = dataSource.getTarefas()
 
+    fun deletarTarefa(title: String){
+        dataSource.deletarTarefa( title )
+    }
 
 }
