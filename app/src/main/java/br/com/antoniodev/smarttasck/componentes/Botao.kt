@@ -17,13 +17,12 @@ import br.com.antoniodev.smarttasck.ui.theme.WHITE
 @Composable
 fun Botao(
     titulo: String,
-    modifier: Modifier
+    modifier: Modifier,
+    onClick: () -> Unit
 ){
 
     Button(
-          onClick = {
-              Log.i("TAG", "Botao clicado")
-          },
+          onClick = onClick,
           modifier = modifier,
           colors = ButtonDefaults.buttonColors(
                 containerColor = Purple40,
