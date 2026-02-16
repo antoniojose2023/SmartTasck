@@ -1,6 +1,7 @@
 package br.com.antoniodev.smarttasck.itemlistagem
 
 import android.text.Layout
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,22 +13,46 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.R
+import br.com.antoniodev.smarttasck.model.Tarefa
+import br.com.antoniodev.smarttasck.ui.theme.AMARELO100
+import br.com.antoniodev.smarttasck.ui.theme.AZUL100
+import br.com.antoniodev.smarttasck.ui.theme.BLACK
 import br.com.antoniodev.smarttasck.ui.theme.Shapes
 import br.com.antoniodev.smarttasck.ui.theme.VERDE100
 import br.com.antoniodev.smarttasck.ui.theme.WHITE
 
 @Composable
-fun ItemTarefa(){
+fun ItemTarefa(item: Tarefa){
+
+    val context = LocalContext.current
+
+
+    val prioridade = when(item.prioridade){
+         0 -> "Sem prioridade"
+         1 -> "Prioridade baixa"
+         2 -> "Prioridade média"
+         else -> "Prioridade alta"
+    }
+
+    val corCardPrioridade = when(item.prioridade){
+         0 -> BLACK
+         1 -> VERDE100
+         2 -> AMARELO100
+         else -> AZUL100
+    }
+
 
     Card(
          modifier = Modifier.fillMaxWidth().height(180.dp).padding(16.dp),
@@ -44,12 +69,12 @@ fun ItemTarefa(){
         ) {
 
             Text(
-                text = "Atividade 1",
+                text = item.titulo.toString(),
                 modifier = Modifier.align(Alignment.Start).padding(8.dp)
             )
             Text(
-                text = " is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-                modifier = Modifier.padding(8.dp)
+                text = item.descricao.toString(),
+                modifier =  Modifier.align(Alignment.Start).padding(8.dp)
             )
 
             Row(
@@ -59,26 +84,32 @@ fun ItemTarefa(){
             ) {
 
                 Text(
-                    text = "Níveis de prioridade",
+                    text = prioridade,
                     modifier = Modifier.padding(8.dp)
                 )
 
                 Card(
                       modifier = Modifier.width(30.dp).height(30.dp).padding(8.dp),
                       colors = CardDefaults.cardColors(
-                            containerColor = VERDE100
+                            containerColor = corCardPrioridade
                       ),
                       shape = Shapes.extraLarge
                 ) {
 
                 }
 
-                Image(
-                    imageVector = ImageVector.vectorResource(br.com.antoniodev.smarttasck.R.drawable.ic_delete),
-                    contentDescription = "",
-                    //Modifier.padding(8.dp).align(Alignment.End)
+                IconButton(
+                     onClick = {
+                         Toast.makeText(context, "Clicou no botão excluir", Toast.LENGTH_SHORT).show()
+                     }
+                ) {
+                    Image(
+                        imageVector = ImageVector.vectorResource(br.com.antoniodev.smarttasck.R.drawable.ic_delete),
+                        contentDescription = "",
+                        //Modifier.padding(8.dp).align(Alignment.End)
 
-                )
+                    )
+                }
 
             }
 
@@ -88,8 +119,3 @@ fun ItemTarefa(){
 
 }
 
-@Preview(showBackground = true)
-@Composable
-fun ItemTarefaPreview(){
-    ItemTarefa()
-}

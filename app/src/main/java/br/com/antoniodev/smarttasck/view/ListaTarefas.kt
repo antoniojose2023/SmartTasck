@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.graphics.drawable.Icon
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.R
@@ -23,12 +25,24 @@ import androidx.navigation.NavController
 import br.com.antoniodev.smarttasck.ui.theme.Purple40
 import br.com.antoniodev.smarttasck.ui.theme.WHITE
 import br.com.antoniodev.smarttasck.R.drawable
+import br.com.antoniodev.smarttasck.itemlistagem.ItemTarefa
+import br.com.antoniodev.smarttasck.model.Tarefa
 import br.com.antoniodev.smarttasck.ui.theme.BLACK
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+//@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ListaTarefas(navController: NavController){
+
+    val tarefas = mutableListOf(
+        Tarefa("Atividade1", "jhas hsjhajsah ahsjahsjajs", 0),
+        Tarefa("Atividade2", "jhas hsjhajsah ahsjahsjajs", 1),
+        Tarefa("Atividade3", "jhas hsjhajsah ahsjahsjajs", 2),
+        Tarefa("Atividade4", "jhas hsjhajsah ahsjahsjajs", 3),
+        Tarefa("Atividade5", "jhas hsjhajsah ahsjahsjajs", 4),
+        Tarefa("Atividade6", "jhas hsjhajsah ahsjahsjajs", 2),
+    )
+
 
     Scaffold(
           topBar = {
@@ -55,7 +69,17 @@ fun ListaTarefas(navController: NavController){
               }
           },
           containerColor = BLACK
-    ) {
+    ) {paddingValues ->
+
+        LazyColumn(
+              modifier = Modifier.padding( paddingValues )
+        ) {
+             items(tarefas.size){ index ->
+                 val item = tarefas[index]
+                 ItemTarefa( item )
+             }
+        }
+
 
     }
 
