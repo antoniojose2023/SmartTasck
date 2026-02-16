@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -58,4 +59,10 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:$nav_version")
 
     implementation("androidx.compose.material3:material3:1.4.0")
+
+    implementation(platform("com.google.firebase:firebase-bom:34.9.0"))
+    // Para Firebase Authentication com Kotlin extensions
+    implementation("com.google.firebase:firebase-auth")
+    // Para Cloud Firestore com Kotlin extension
+    implementation("com.google.firebase:firebase-firestore")
 }

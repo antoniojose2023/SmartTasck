@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "919117451255",
+    "project_id": "anotacao-bb1ad",
+    "storage_bucket": "anotacao-bb1ad.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919117451255:android:7b38ec45f6b55dad22e8f2",
+        "android_client_info": {
+          "package_name": "br.com.antoniodev.smarttasck"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI-7cETMrDxJ-m2oqnnfDoOQo-Hoxezk4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

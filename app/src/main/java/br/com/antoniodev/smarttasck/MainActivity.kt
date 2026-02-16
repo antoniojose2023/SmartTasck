@@ -10,6 +10,8 @@ import androidx.navigation.compose.rememberNavController
 import br.com.antoniodev.smarttasck.ui.theme.SmartTasckTheme
 import br.com.antoniodev.smarttasck.view.ListaTarefas
 import br.com.antoniodev.smarttasck.view.SalvarTarefas
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
