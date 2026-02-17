@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import br.com.antoniodev.smarttasck.ui.theme.SmartTasckTheme
 import br.com.antoniodev.smarttasck.view.ListaTarefas
+import br.com.antoniodev.smarttasck.view.Login
 import br.com.antoniodev.smarttasck.view.SalvarTarefas
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,8 +23,12 @@ class MainActivity : ComponentActivity() {
 
                 val navController = rememberNavController()
 
-                NavHost(navController = navController, startDestination = "listarTarefas"){
-                     composable("listarTarefas") {
+                NavHost(navController = navController, startDestination = "login"){
+                    composable("login") {
+                        Login(navController)
+                    }
+
+                    composable("listarTarefas") {
                          ListaTarefas(navController)
                      }
 

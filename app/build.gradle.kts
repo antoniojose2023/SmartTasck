@@ -6,9 +6,7 @@ plugins {
 
 android {
     namespace = "br.com.antoniodev.smarttasck"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "br.com.antoniodev.smarttasck"
@@ -65,4 +63,9 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     // Para Cloud Firestore com Kotlin extension
     implementation("com.google.firebase:firebase-firestore")
+
+    //Hilt
+
+   // implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+
 }
