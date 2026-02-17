@@ -2,6 +2,7 @@ package br.com.antoniodev.smarttasck.view
 
 
 import android.annotation.SuppressLint
+import android.view.translation.ViewTranslationRequest
 import androidx.compose.foundation.Image
 
 import androidx.compose.foundation.background
@@ -34,6 +35,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.motionEventSpy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -51,6 +54,13 @@ fun Login(navController: NavController){
 
     var email by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
+
+    var statusVisibility by remember { mutableStateOf(true) }
+
+    val icon = if (statusVisibility)
+        painterResource(R.drawable.ic_invisivel)
+    else
+        painterResource(R.drawable.ic_visivel)
 
 
     Scaffold(
@@ -87,8 +97,8 @@ fun Login(navController: NavController){
                       focusedTextColor = BLACK,
                       focusedLabelColor = Purple80,
                       focusedContainerColor = WHITE,
+                      cursorColor = Purple80,
                       unfocusedContainerColor = WHITE,
-                      cursorColor = Purple80
                 ),
                 trailingIcon = {
                      Image(imageVector = ImageVector.vectorResource(R.drawable.ic_email_senha), contentDescription = null)
@@ -115,12 +125,13 @@ fun Login(navController: NavController){
                 trailingIcon = {
                     IconButton(
                         onClick = {
-
+                             statusVisibility = !statusVisibility
                         }
                     ) {
-                        Icon(painter = painterResource(R.drawable.ic_invisivel), contentDescription = null)
+                        Icon(painter = icon, contentDescription = null)
                     }
-                }
+                },
+                visualTransformation = if(statusVisibility) VisualTransformation.None else PasswordVisualTransformation()
             )
 
             Text(
