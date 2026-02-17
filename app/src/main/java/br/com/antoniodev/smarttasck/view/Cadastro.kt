@@ -1,11 +1,7 @@
 package br.com.antoniodev.smarttasck.view
 
-
 import android.annotation.SuppressLint
-import android.graphics.Color
-import android.view.translation.ViewTranslationRequest
 import androidx.compose.foundation.Image
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -22,8 +19,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldColors
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,10 +28,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.pointer.motionEventSpy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -44,7 +39,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.antoniodev.smarttasck.R
 import br.com.antoniodev.smarttasck.ui.theme.BLACK
-import br.com.antoniodev.smarttasck.ui.theme.Purple40
 import br.com.antoniodev.smarttasck.ui.theme.Purple80
 import br.com.antoniodev.smarttasck.ui.theme.RED
 import br.com.antoniodev.smarttasck.ui.theme.Shapes
@@ -52,9 +46,9 @@ import br.com.antoniodev.smarttasck.ui.theme.WHITE
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun Login(navController: NavController){
+fun Cadastro(navController: NavController){
 
-
+    var nome by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
 
@@ -71,19 +65,44 @@ fun Login(navController: NavController){
     ) {
 
         Column(
-              modifier = Modifier.fillMaxSize()
-                  .background(
-                      brush = Brush.verticalGradient(
-                             colors = listOf(BLACK, Purple80)
-                       )
-                  ),
-              verticalArrangement = Arrangement.Center,
-              horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.fillMaxSize()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(BLACK, Purple80)
+                    )
+                ),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ){
             Image(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_email_senha),
                 contentDescription = null,
                 modifier = Modifier.size(70.dp)
+            )
+
+            OutlinedTextField(
+                value = nome,
+                onValueChange = {
+                    nome = it
+                },
+                label = {
+                    Text("Seu nome")
+                },
+                modifier = Modifier.fillMaxWidth().padding(16.dp, 16.dp, 16.dp, 4.dp),
+                shape = Shapes.medium,
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedTextColor = BLACK,
+                    focusedLabelColor = Purple80,
+                    focusedContainerColor = WHITE,
+                    cursorColor = Purple80,
+                    unfocusedContainerColor = WHITE,
+                ),
+                trailingIcon = {
+                    Image(imageVector = ImageVector.vectorResource(R.drawable.ic_user), contentDescription = null)
+                },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text
+                )
             )
 
             OutlinedTextField(
@@ -94,18 +113,21 @@ fun Login(navController: NavController){
                 label = {
                     Text("Email")
                 },
-                modifier = Modifier.fillMaxWidth().padding(16.dp, 16.dp, 16.dp, 4.dp),
+                modifier = Modifier.fillMaxWidth().padding(16.dp, 4.dp, 16.dp, 4.dp),
                 shape = Shapes.medium,
                 colors = OutlinedTextFieldDefaults.colors(
-                      focusedTextColor = BLACK,
-                      focusedLabelColor = Purple80,
-                      focusedContainerColor = WHITE,
-                      cursorColor = Purple80,
-                      unfocusedContainerColor = WHITE,
+                    focusedTextColor = BLACK,
+                    focusedLabelColor = Purple80,
+                    focusedContainerColor = WHITE,
+                    cursorColor = Purple80,
+                    unfocusedContainerColor = WHITE,
                 ),
                 trailingIcon = {
-                     Image(imageVector = ImageVector.vectorResource(R.drawable.ic_email), contentDescription = null)
-                }
+                    Image(imageVector = ImageVector.vectorResource(R.drawable.ic_email), contentDescription = null)
+                },
+                keyboardOptions = KeyboardOptions(
+                      keyboardType = KeyboardType.Email
+                )
             )
 
             OutlinedTextField(
@@ -128,7 +150,7 @@ fun Login(navController: NavController){
                 trailingIcon = {
                     IconButton(
                         onClick = {
-                             statusVisibility = !statusVisibility
+                            statusVisibility = !statusVisibility
                         }
                     ) {
                         Icon(painter = icon, contentDescription = null)
@@ -138,7 +160,7 @@ fun Login(navController: NavController){
             )
 
             Text(
-                text = "",
+                text = "fdfdfdfd",
                 color = RED,
                 modifier = Modifier.padding(16.dp, 8.dp, 16.dp, 0.dp).fillMaxWidth(),
                 fontWeight = FontWeight.Bold
@@ -149,23 +171,23 @@ fun Login(navController: NavController){
 
                 },
                 colors = ButtonDefaults.buttonColors(
-                        containerColor = Purple80
+                    containerColor = Purple80
                 ),
                 modifier = Modifier.padding(16.dp, 4.dp, 16.dp, 6.dp).fillMaxWidth()
             ) {
                 Text(
-                    text = "Entrar",
+                    text = "Cadastro",
                     color = BLACK,
                 )
             }
 
             Text(
-                text = "Ainda não tem uma conta? crie sua conta!",
+                text = "Voltar ao login!",
                 color = BLACK,
                 modifier = Modifier.padding(16.dp, 0.dp, 16.dp, 0.dp)
                     .fillMaxWidth().clickable(
                         onClick = {
-                            navController.navigate("cadastro")
+                            navController.navigate("login")
                         }
                     ),
                 textAlign = TextAlign.End
@@ -175,6 +197,5 @@ fun Login(navController: NavController){
         }
 
     }
-
 
 }

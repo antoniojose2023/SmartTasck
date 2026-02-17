@@ -26,3 +26,5 @@ val BLACK = Color(0xFF070707)
 
 val LIGHT_BLUE = Color(0xFF6F78B6)
 
+val RED = Color(0xFFF44336)
+
