@@ -5,8 +5,8 @@ import br.com.antoniodev.smarttasck.data.datasource.DataSource
 class RepositoryTarefa {
     val dataSource = DataSource()
 
-    fun salvarTarefa(titulo: String, decsricao: String, prioridade: Int){
-            dataSource.salvarTarefa(titulo, decsricao, prioridade)
+    fun salvarTarefa(titulo: String, decsricao: String, prioridade: Int, status: Boolean){
+            dataSource.salvarTarefa(titulo, decsricao, prioridade, status)
     }
 
     fun getTarefas() = dataSource.getTarefas()
@@ -14,5 +14,10 @@ class RepositoryTarefa {
     fun deletarTarefa(title: String){
         dataSource.deletarTarefa( title )
     }
+
+    fun atualizarStatusTarefa(title: String, status: Boolean){
+        dataSource.AtualizarStatusTarefa(title, status)
+    }
+
 
 }

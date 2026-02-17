@@ -173,28 +173,28 @@ fun SalvarTarefas(navController: NavController){
                     if(title.isEmpty()){
                         mensagem = false
                     }else if(title.isNotEmpty() && description.isNotEmpty() && prioridadeBaixa){
-                        repositoryTarefa.salvarTarefa(title, description, Constantes.PRIORIDADE_BAIXA)
+                        repositoryTarefa.salvarTarefa(title, description, Constantes.PRIORIDADE_BAIXA, false)
                         mensagem = true
                     }else if(title.isNotEmpty() && description.isNotEmpty() && prioridadeMedia){
-                        repositoryTarefa.salvarTarefa(title, description, Constantes.PRIORIDADE_MEDIA)
+                        repositoryTarefa.salvarTarefa(title, description, Constantes.PRIORIDADE_MEDIA, false)
                         mensagem = true
                     }else if(title.isNotEmpty() && description.isNotEmpty() && prioridadeAlta){
-                        repositoryTarefa.salvarTarefa(title, description, Constantes.PRIORIDADE_ALTA)
+                        repositoryTarefa.salvarTarefa(title, description, Constantes.PRIORIDADE_ALTA, false)
                         mensagem = true
                     }else if(title.isNotEmpty() && description.isEmpty() && prioridadeBaixa){
-                        repositoryTarefa.salvarTarefa(title, description, Constantes.PRIORIDADE_BAIXA)
+                        repositoryTarefa.salvarTarefa(title, description, Constantes.PRIORIDADE_BAIXA, false)
                         mensagem = true
                     }else if(title.isNotEmpty() && description.isEmpty() && prioridadeMedia){
-                        repositoryTarefa.salvarTarefa(title, description, Constantes.PRIORIDADE_MEDIA)
+                        repositoryTarefa.salvarTarefa(title, description, Constantes.PRIORIDADE_MEDIA, false)
                         mensagem = true
                     }else if(title.isNotEmpty() && description.isEmpty() && prioridadeAlta){
-                        repositoryTarefa.salvarTarefa(title, description, Constantes.PRIORIDADE_ALTA)
+                        repositoryTarefa.salvarTarefa(title, description, Constantes.PRIORIDADE_ALTA, false)
                         mensagem = true
                     }else if(title.isNotEmpty() && description.isEmpty() && semPrioridade){
-                        repositoryTarefa.salvarTarefa(title, description, Constantes.SEM_PRIORIDADE)
+                        repositoryTarefa.salvarTarefa(title, description, Constantes.SEM_PRIORIDADE, false)
                         mensagem = true
                     }else if(title.isNotEmpty() && description.isNotEmpty() && semPrioridade){
-                        repositoryTarefa.salvarTarefa(title, description, Constantes.SEM_PRIORIDADE)
+                        repositoryTarefa.salvarTarefa(title, description, Constantes.SEM_PRIORIDADE, false)
                         mensagem = true
                     }
 

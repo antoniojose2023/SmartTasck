@@ -18,12 +18,13 @@ class DataSource {
     val todasTarefas: StateFlow<MutableList<Tarefa>> = _todasTarefas
 
 
-    fun salvarTarefa(titulo: String, decsricao: String, prioridade: Int){
+    fun salvarTarefa(titulo: String, decsricao: String, prioridade: Int, status: Boolean){
 
           val tarefa = hashMapOf(
                 "titulo" to titulo,
                 "descricao" to decsricao,
-                "prioridade" to prioridade
+                "prioridade" to prioridade,
+                "status" to status
           )
 
           db.collection("tarefas").document(titulo).set(tarefa).addOnCompleteListener {
@@ -64,6 +65,15 @@ class DataSource {
 
           }
 
+    }
+
+
+    fun AtualizarStatusTarefa(title: String, status: Boolean){
+           db.collection("tarefas").document(title).update("status", status).addOnCompleteListener {
+
+           }.addOnFailureListener {
+
+           }
     }
 
 }
