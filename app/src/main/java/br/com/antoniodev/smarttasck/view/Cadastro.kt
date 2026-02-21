@@ -1,6 +1,8 @@
 package br.com.antoniodev.smarttasck.view
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -38,15 +41,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.antoniodev.smarttasck.R
+import br.com.antoniodev.smarttasck.data.repository.RepositoryAuth
+import br.com.antoniodev.smarttasck.listerners.Listerner
 import br.com.antoniodev.smarttasck.ui.theme.BLACK
 import br.com.antoniodev.smarttasck.ui.theme.Purple80
 import br.com.antoniodev.smarttasck.ui.theme.RED
 import br.com.antoniodev.smarttasck.ui.theme.Shapes
 import br.com.antoniodev.smarttasck.ui.theme.WHITE
+import kotlin.system.exitProcess
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Cadastro(navController: NavController){
+
+    val repositoryAuth = RepositoryAuth()
+    val context = LocalContext.current
 
     var nome by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -160,7 +169,7 @@ fun Cadastro(navController: NavController){
             )
 
             Text(
-                text = "fdfdfdfd",
+                text = "",
                 color = RED,
                 modifier = Modifier.padding(16.dp, 8.dp, 16.dp, 0.dp).fillMaxWidth(),
                 fontWeight = FontWeight.Bold
@@ -168,7 +177,15 @@ fun Cadastro(navController: NavController){
 
             Button(
                 onClick = {
-
+                        repositoryAuth.cadastro(nome, email, senha, object : Listerner{
+                            override fun Sucesso(mensagem: String) {
+                                Toast.makeText(context, mensagem, Toast.LENGTH_SHORT).show()
+                                navController.navigate("login")
+                            }
+                            override fun Falha(mensagem: String) {
+                                Toast.makeText(context, mensagem, Toast.LENGTH_SHORT).show()
+                            }
+                        })
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Purple80
@@ -192,7 +209,6 @@ fun Cadastro(navController: NavController){
                     ),
                 textAlign = TextAlign.End
             )
-
 
         }
 

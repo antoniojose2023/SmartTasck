@@ -1,7 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.kapt)
     id("com.google.gms.google-services")
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -28,8 +31,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     buildFeatures {
         compose = true
@@ -65,7 +68,9 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")
 
     //Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
-   // implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
 }

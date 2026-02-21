@@ -58,7 +58,6 @@ class DataSource {
 
 
     fun deletarTarefa(title: String){
-
           db.collection("tarefas").document(title).delete().addOnCompleteListener {
 
           }.addOnFailureListener {
