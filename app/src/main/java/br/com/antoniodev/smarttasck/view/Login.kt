@@ -2,8 +2,10 @@ package br.com.antoniodev.smarttasck.view
 
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.view.translation.ViewTranslationRequest
+import android.widget.Toast
 import androidx.compose.foundation.Image
 
 import androidx.compose.foundation.background
@@ -34,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.motionEventSpy
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -43,6 +46,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.antoniodev.smarttasck.R
+import br.com.antoniodev.smarttasck.data.repository.RepositoryAuth
+import br.com.antoniodev.smarttasck.listerners.Listerner
 import br.com.antoniodev.smarttasck.ui.theme.BLACK
 import br.com.antoniodev.smarttasck.ui.theme.Purple40
 import br.com.antoniodev.smarttasck.ui.theme.Purple80
@@ -54,6 +59,8 @@ import br.com.antoniodev.smarttasck.ui.theme.WHITE
 @Composable
 fun Login(navController: NavController){
 
+    val repositoryAuth = RepositoryAuth()
+    val context = LocalContext.current
 
     var email by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
@@ -146,7 +153,17 @@ fun Login(navController: NavController){
 
             Button(
                 onClick = {
+                      repositoryAuth.login( email, senha, object : Listerner{
+                          override fun Sucesso(mensagen: String) {
+                                Toast.makeText(context, mensagen, Toast.LENGTH_SHORT).show()
+                                navController.navigate("listarTarefas")
+                          }
 
+                          override fun Falha(mensagen: String) {
+                              Toast.makeText(context, mensagen, Toast.LENGTH_SHORT).show()
+                          }
+
+                      } )
                 },
                 colors = ButtonDefaults.buttonColors(
                         containerColor = Purple80

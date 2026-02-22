@@ -49,20 +49,36 @@ class Autentication {
 
     fun login(email: String, password: String, listener: Listerner) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                listener.Sucesso("Login realizado com sucesso")
-            } else {
-                val excecao = task.exception
-                val erro = when (excecao) {
-                    is FirebaseNetworkException -> "Erro de conexão"
-                    is FirebaseAuthInvalidCredentialsException -> "Email ou senha incorretos"
-                    is FirebaseAuthInvalidUserException -> "Usuário não cadastrado"
-                    else -> "Erro ao tentar realizar o login"
-                }
 
-                listener.Falha( erro )
+            if(email.isEmpty() || password.isEmpty()){
+                listener.Falha("Preencha todos os campos")
+            }else{
+                if (task.isSuccessful) {
+                    listener.Sucesso("Login realizado com sucesso")
+                } else {
+                    val excecao = task.exception
+                    val erro = when (excecao) {
+                        is FirebaseNetworkException -> "Erro de conexão"
+                        is FirebaseAuthInvalidCredentialsException -> "Email ou senha incorretos"
+                        is FirebaseAuthInvalidUserException -> "Usuário não cadastrado"
+                        else -> "Erro ao tentar realizar o login"
+                    }
+
+                    listener.Falha( erro )
+                }
             }
+
         }
+    }
+
+    fun verificarUsuarioLogado(){
+           val usuarioLogado = auth.currentUser
+
+           if (usuarioLogado != null){
+
+           }else{
+
+           }
     }
 
 }
