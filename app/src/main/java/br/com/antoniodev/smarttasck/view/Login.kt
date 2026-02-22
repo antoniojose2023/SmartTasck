@@ -27,9 +27,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,13 +57,16 @@ import br.com.antoniodev.smarttasck.ui.theme.Purple80
 import br.com.antoniodev.smarttasck.ui.theme.RED
 import br.com.antoniodev.smarttasck.ui.theme.Shapes
 import br.com.antoniodev.smarttasck.ui.theme.WHITE
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
 @Composable
 fun Login(navController: NavController){
 
     val repositoryAuth = RepositoryAuth()
     val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
 
     var email by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
@@ -72,6 +78,10 @@ fun Login(navController: NavController){
     else
         painterResource(R.drawable.ic_visivel)
 
+    var statusLogado = repositoryAuth.verificarUsuarioLogado().collectAsState(initial = false).value
+    LaunchedEffect(statusLogado) {
+        if (statusLogado) navController.navigate("listarTarefas") else statusLogado = false
+    }
 
     Scaffold(
         modifier = Modifier

@@ -1,5 +1,6 @@
 package br.com.antoniodev.smarttasck.view
 
+
 import android.annotation.SuppressLint
 import android.graphics.drawable.Icon
 import androidx.compose.foundation.Image
@@ -11,6 +12,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.R
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.contentColorFor
@@ -37,6 +39,7 @@ import br.com.antoniodev.smarttasck.data.repository.RepositoryTarefa
 import br.com.antoniodev.smarttasck.itemlistagem.ItemTarefa
 import br.com.antoniodev.smarttasck.model.Tarefa
 import br.com.antoniodev.smarttasck.ui.theme.BLACK
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.launch
@@ -63,8 +66,28 @@ fun ListaTarefas(navController: NavController){
                   colors = TopAppBarDefaults.topAppBarColors(
                          containerColor = Purple40,
                          titleContentColor = WHITE
-                  )
+                  ),
+                  actions = {
+
+                      Text(
+                          text = "usuaário",
+                          color = WHITE
+                      )
+
+                      TextButton(
+                           onClick = {
+                                FirebaseAuth.getInstance().signOut()
+                                navController.navigate("login")
+                           }
+                      ) {
+                           Text(
+                               text = "Sair",
+                               color = WHITE
+                           )
+                      }
+                  }
               )
+
           },
           floatingActionButton = {
               FloatingActionButton(

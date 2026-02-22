@@ -8,10 +8,16 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 class Autentication {
     val auth = FirebaseAuth.getInstance()
     val firestore = FirebaseFirestore.getInstance()
+
+    private var _statusLogado = MutableStateFlow(false)
+    val statusLogado: StateFlow<Boolean> = _statusLogado
 
     fun cadastro(nome: String, email: String, password: String, listener: Listerner) {
           if(nome.isEmpty() || email.isEmpty() || password.isEmpty()){
@@ -71,14 +77,15 @@ class Autentication {
         }
     }
 
-    fun verificarUsuarioLogado(){
+    fun verificarUsuarioLogado(): Flow<Boolean>{
            val usuarioLogado = auth.currentUser
 
            if (usuarioLogado != null){
-
+                _statusLogado.value = true
            }else{
-
+               _statusLogado.value = false
            }
+          return statusLogado
     }
 
 }
