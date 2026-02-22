@@ -24,5 +24,8 @@ class RepositoryAuth {
           return auth.verificarUsuarioLogado()
     }
 
+    fun recuperDadosUsuarioLogado(): Flow<String>{
+         return auth.recuperDadosUsuarioLogado()
+    }
 
 }

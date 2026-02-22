@@ -35,6 +35,7 @@ import androidx.navigation.NavController
 import br.com.antoniodev.smarttasck.ui.theme.Purple40
 import br.com.antoniodev.smarttasck.ui.theme.WHITE
 import br.com.antoniodev.smarttasck.R.drawable
+import br.com.antoniodev.smarttasck.data.repository.RepositoryAuth
 import br.com.antoniodev.smarttasck.data.repository.RepositoryTarefa
 import br.com.antoniodev.smarttasck.itemlistagem.ItemTarefa
 import br.com.antoniodev.smarttasck.model.Tarefa
@@ -55,6 +56,7 @@ fun ListaTarefas(navController: NavController){
 
     var tarefas by remember{ mutableStateOf(emptyList<Tarefa>())}
 
+    val repositoryAuth = RepositoryAuth()
 
     Scaffold(
           topBar = {
@@ -69,8 +71,9 @@ fun ListaTarefas(navController: NavController){
                   ),
                   actions = {
 
+                      val nome = repositoryAuth.recuperDadosUsuarioLogado().collectAsState(initial = "").value
                       Text(
-                          text = "usuaário",
+                          text = nome,
                           color = WHITE
                       )
 

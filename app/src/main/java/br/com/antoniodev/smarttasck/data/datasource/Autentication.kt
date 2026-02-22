@@ -19,6 +19,9 @@ class Autentication {
     private var _statusLogado = MutableStateFlow(false)
     val statusLogado: StateFlow<Boolean> = _statusLogado
 
+    private var _usuario = MutableStateFlow("")
+    val usuario: StateFlow<String> = _usuario
+
     fun cadastro(nome: String, email: String, password: String, listener: Listerner) {
           if(nome.isEmpty() || email.isEmpty() || password.isEmpty()){
               listener.Falha("Preencha todos os campos")
@@ -86,6 +89,19 @@ class Autentication {
                _statusLogado.value = false
            }
           return statusLogado
+    }
+
+    fun recuperDadosUsuarioLogado(): Flow<String>{
+        val userId = auth.currentUser!!.uid
+        firestore.collection("usuarios").document(userId).get().addOnCompleteListener { task ->
+            if(task.isSuccessful){
+                val document = task.result
+                val nome = document.getString("nome")
+                _usuario.value = nome.toString()
+            }
+        }
+
+        return usuario
     }
 
 }
